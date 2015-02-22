@@ -1,0 +1,30 @@
+    <form data-abide="ajax">
+
+      <div class="name-field row panel input-wrapper">
+        <label>Your name <small>required</small>
+          <input type="text" required pattern="[a-zA-Z]+">
+        </label>
+        <small class="error">Name is required and must be a string.</small>
+      </div>
+
+      <div class="email-field row panel input-wrapper">
+        <label>Email <small>required</small>
+          <input type="email" required>
+        </label>
+        <small class="error">An email address is required.</small>
+      </div>
+
+      <div class="card-field row panel input-wrapper">
+        <label>Card number <small>required</small>
+          <input type="text" pattern="card" autocomplete="off" required>
+        </label>
+        <small class="error">An email address is required.</small>
+      </div>
+
+      <div class="email-field row panel">
+
+        <button type="submit">Submit</button>
+
+      </div>
+
+    </form>
