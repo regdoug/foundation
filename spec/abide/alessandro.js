@@ -3,34 +3,6 @@ function validstring(a,b,c) {
     return 'A='+strval[a]+' B='+strval[b]+' C='+strval[c];
 }
 
-function enterStuff(order,a,b,c) {
-
-    var stuffs = {
-        'A':generateName(a),
-        'B':generateName(b),
-        'C':generateCreditCard(c)
-    };
-    var selectors = {
-        'A':'.name-field',
-        'B':'.email-field',
-        'C':'.card-field'
-    };
-    for(i=0;i<3;i++) {
-        var field = order[i];
-        var stuff = stuffs[field];
-        if( stuff ) {
-            $(selectors[field]+' input').val(stuff);
-        }
-    }
-    $('button[type=submit]').click();
-    jasmine.Clock.tick(500);
-    if( 0 == c ) {
-        expect($('.card-field .error').css('display')).toBe('none');
-    } else {
-        expect($('.card-field .error').css('display')).not.toBe('none');
-    }
-}
-
 function generateName(kind) {
     if( 0 == kind ) {
         return randomString(10,'abcdefghijklmnopqrstuvwzyz');
@@ -99,7 +71,6 @@ describe('abide:alessandro:',function() {
         });
 
         var orders = ['ABC','ACB','BAC','BCA','CAB','CBA'];
-        //orders = ['ABC'];
         for(i in orders) {
             for(a=0;a<3;a++) {
                 for(b=0;b<3;b++) {
@@ -121,10 +92,11 @@ describe('abide:alessandro:',function() {
                                 var field = order[i];
                                 var stuff = stuffs[field];
                                 if( stuff ) {
+                                    $(selectors[field]+' input').focus();
                                     $(selectors[field]+' input').val(stuff);
+                                    jasmine.Clock.tick(300);
                                 }
                             }
-                            //jasmine.Clock.tick(500);
                             $('form').submit();
                             if( shouldvalidate ) {
                                 expect($('.card-field input')).toHaveData('valid');
